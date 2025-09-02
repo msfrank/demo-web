@@ -16,7 +16,7 @@ COPY uwsgi.ini /srv/uwsgi.ini
 COPY supervisord.conf /srv/supervisord.conf
 
 # copy static content
-COPY content /srv/content
+COPY static-content /srv/static-content
 
 # copy webapp
 COPY webapp /srv/webapp
