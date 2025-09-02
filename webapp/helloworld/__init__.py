@@ -14,26 +14,25 @@ def create_app(test_config=None):
         # load the test config if passed in
         app.config.from_mapping(test_config)
 
-    # ensure the instance folder exists
+    # for each request read the config at /letter_to_display to determine the letter we show
+    letter_to_display = '???'
     try:
-        os.makedirs(app.instance_path)
-    except OSError:
+        with open('/letter_to_display', 'r') as f:
+            letter_to_display = f.read().strip()
+    except:
         pass
 
     # a simple page that says hello
     @app.route('/')
     def greeting():
         context = {}
+
+        # capture some information from the current request object
         context['date'] = request.date
         context['host'] = request.host
         context['user_agent'] = request.user_agent
         context['forwarded'] = request.headers.get('forwarded')
-        context['letter_to_display'] = '???'
-        try:
-            with open('/letter_to_display', 'r') as f:
-                context['letter_to_display'] = f.read().strip()
-        except:
-            pass
+        context['letter_to_display'] = letter_to_display
         return render_template('greeting.html', context=context)
 
     return app

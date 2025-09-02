@@ -1,19 +1,23 @@
 <html>
   <head>
     <link rel="stylesheet" href="/static/styles.css" />
-    <title>This is {{ context.letter_to_display }}</title>
+    <title>This is webserver {{ context.letter_to_display }}</title>
   </head>
   <body>
-    <p class="greeting>
-      Hello, <span id="letter">{{ context.letter_to_display }}</span>!
+    <p id="greeting>
+      Hello, you reached webserver <span id="letter">{{ context.letter_to_display }}</span>!
+      I've discovered a few things about you:
     </p>
-    <p>
-      <code>
-        Date: {{ context.date }}
-        Host: {{ context.host }}
-        User-agent: {{ context.user_agent }}
-        Forwarded: {{ context.forwarded }}
-      </code>
+    <p id="info">
+      You specified the following host: {{ context.host }}
+      <br/>
+      Your user-agent is <b>{{ context.user_agent }}</b>
+      <br/>
+      {% if context.forwarded %}
+      Your client IP address was captured via the Forwarded header: {{ context.forwarded }}
+      {% else %}
+      Your client IP address was not captured via the Forwarded header.
+      {% endif %}
     </p>
   </body>
 </html>

@@ -1,13 +1,27 @@
 
 body {
-  background-color: grey;
+  margin-top: 40px;
+  background-color: white;
+  font: 18pt sans-serif;
 }
 
-.greeting {
-  background-color: purple;
-  font-family: sans-serif;
+#greeting {
+  font: 24pt sans-serif;
 }
 
+#info {
+  margin-left: 20px;
+  margin-right: 20px;
+}
+
+/*
+ * why not add some blinking text? learned the CSS3 magic from:
+ * https://stackoverflow.com/questions/16344354/how-to-make-blinking-flashing-text-with-css-3
+ */
 #letter {
-  color: white;
+  animation: blinker 2s linear infinite;
+}
+
+@keyframes blinker {
+    50% { opacity: 0; }
 }
