@@ -1,6 +1,6 @@
 import os
 
-from flask import Flask, render_template
+from flask import Flask, request, render_template
 
 
 def create_app(test_config=None):
@@ -23,6 +23,17 @@ def create_app(test_config=None):
     # a simple page that says hello
     @app.route('/')
     def greeting():
-        return render_template('greeting.html', letter_to_display="A")
+        context = {}
+        context['date'] = request.date
+        context['host'] = request.host
+        context['user_agent'] = request.user_agent
+        context['forwarded'] = request.headers.get('forwarded')
+        context['letter_to_display'] = '???'
+        try:
+            with open('/letter_to_display', 'r') as f:
+                context['letter_to_display'] = f.read().strip()
+        except:
+            pass
+        return render_template('greeting.html', context=context)
 
     return app

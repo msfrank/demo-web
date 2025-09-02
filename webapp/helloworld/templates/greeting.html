@@ -1,11 +1,19 @@
 <html>
   <head>
     <link rel="stylesheet" href="/static/styles.css" />
-    <title>This is {{ letter_to_display }}</title>
+    <title>This is {{ context.letter_to_display }}</title>
   </head>
   <body>
     <p class="greeting>
-      Hello, <span id="letter">{{ letter_to_display }}</span>!
+      Hello, <span id="letter">{{ context.letter_to_display }}</span>!
+    </p>
+    <p>
+      <code>
+        Date: {{ context.date }}
+        Host: {{ context.host }}
+        User-agent: {{ context.user_agent }}
+        Forwarded: {{ context.forwarded }}
+      </code>
     </p>
   </body>
 </html>
